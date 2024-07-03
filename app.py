@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from pymongo import MongoClient
 from config import Config
 
@@ -8,16 +8,12 @@ app.config.from_object(Config)
 #Connect to Mongo
 client = MongoClient(app.config['MONGO_URI'])
 db = client['sizzles']
+food_menu = db.food
+orders = db.orders
 
-@app.route('/')
-def hello():
-    return "Hello World!"
-
-@app.route('/data')
-def get_data():
-    collection = db['sizzles']
-    data = list(collection.find({}, {'_id': 0}))
-    return jsonify(data)
+@app.route('/', methods=('GET', 'POST'))
+def index():
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
