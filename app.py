@@ -2,6 +2,7 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for
 from pymongo import MongoClient
 from config import Config
 from bson import ObjectId
+import re
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -63,6 +64,33 @@ def delete_food(food_id):
             return jsonify({'success': False, 'message': 'Food item not found'}), 404
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500    
+
+@app.route('/search-food', methods=['GET'])
+def search_food():
+    query = request.args.get('query', '')
+    page = int(request.args.get('page', 1))
+    per_page = 10
+
+    # Create a case-insensitive regex pattern for the search query
+    search_pattern = re.compile(f'.*{re.escape(query)}.*', re.IGNORECASE)
+
+    # Perform the search with pagination
+    total_count = food_menu.count_documents({'name': search_pattern})
+    foods = list(food_menu.find({'name': search_pattern}).skip((page - 1) * per_page).limit(per_page))
+
+    # Convert ObjectId to string for each food item
+    for food in foods:
+        food['_id'] = str(food['_id'])
+
+    # Calculate total pages
+    total_pages = (total_count + per_page - 1) // per_page
+
+    return jsonify({
+        'foods': foods,
+        'page': page,
+        'total_pages': total_pages,
+        'total_count': total_count
+    })    
 
 if __name__ == '__main__':
     app.run(debug=True)
