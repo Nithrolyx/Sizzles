@@ -89,8 +89,35 @@ def search_food():
         'foods': foods,
         'page': page,
         'total_pages': total_pages,
-        'total_count': total_count
+        'total_count': total_count,
+        'no_results': len(foods) == 0  
     })    
-
+    
+@app.route('/update-food/<food_id>', methods=['POST'])
+def update_food(food_id):
+    try:
+        name = request.form.get('foodName')
+        price = float(request.form.get('foodPrice'))
+        
+        # First, check if the food item exists
+        existing_food = food_menu.find_one({'_id': ObjectId(food_id)})
+        
+        if existing_food:
+            # Update the food item in the database
+            result = food_menu.update_one(
+                {'_id': ObjectId(food_id)},
+                {'$set': {'name': name, 'price': price}}
+            )
+            
+            # Check if the update was successful (even if no changes were made)
+            if result.matched_count > 0:
+                return jsonify({'success': True, 'message': 'Food item updated successfully'})
+            else:
+                return jsonify({'success': False, 'message': 'Food item not found'}), 404
+        else:
+            return jsonify({'success': False, 'message': 'Food item not found'}), 404
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
+    
 if __name__ == '__main__':
     app.run(debug=True)
