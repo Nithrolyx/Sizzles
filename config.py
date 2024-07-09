@@ -1,2 +1,2 @@
 class Config:
-    MONGO_URI = "mongodb+srv://nithrolyxneo:DeASI4RHaPJzqYSW@menucluster.4kzieab.mongodb.net/?retryWrites=true&w=majority&appName=MenuCluster"
+    MONGO_URI = "PUT_YOUR_KEY_HEREr"
