@@ -1,39 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sizzles Cafe</title>
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.css"  rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 dark:bg-gray-900">
-    
-    <!-- NAVIGATION BAR -->
-    <nav class="bg-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <span class="text-white text-xl font-bold">Sizzles Cafe</span>
-                    </div>
-                    <div class="hidden md:block">
-                        <div class="ml-10 flex items-baseline space-x-4">
-                            <a href="/orders" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Orders</a>
-                            <a href="/add-food" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Add Food Menu</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+{% extends "base.html" %}
 
-    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div class="px-4 py-6 sm:px-0">
-            {% block content %}
-            {% endblock %}
-        </div>
-    </main>
-</body>
-</html>
+{% block content %}
+
+<!-- Heading -->
+<h1 class="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl text-center justify-between"><span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Take Orders</span> From Here!</h1>
+<p class="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400 text-center">Take the Customers order by clicking the "New Order" button.</p>
+
+
+
+
+<ul class="p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm leading-6">
+    <li>
+        <a href="#" class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Table 1</h5>
+            <p class="font-normal text-gray-700 dark:text-gray-400 pb-4"><span class="font-bold dark:text-green-400">Order Taken at: </span>July 7, 2024 2:40PM</p>
+            <p class="font-bold text-gray-700 dark:text-blue-400">Total Price: P100</p>
+        </a>
+    </li>
+    <li class="flex">
+        <a href="#" class="hover:border-blue-500 hover:border-solid hover:text-blue-500 group w-full flex flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 text-sm leading-6 text-slate-900 font-medium py-3 text-white">
+          <svg class="group-hover:text-blue-500 mb-1 text-slate-400" width="20" height="20" fill="currentColor" aria-hidden="true">
+            <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
+          </svg>
+          New Order
+        </a>
+    </li>
+    
+    
+</ul> 
+    
+{% endblock %}
